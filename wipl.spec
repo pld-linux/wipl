@@ -4,7 +4,7 @@ Version:	020601
 Release:	1
 Copyright:	GNU
 Group:		Applications/Networking
-Source0:	http://wipl-wrr.sourceforge.net/wipl/%{name}-%{version}.tar.gz
+Source0:	http://wipl-wrr.sourceforge.net/tgz-wipl/%{name}-%{version}.tar.gz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
