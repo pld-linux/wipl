@@ -95,6 +95,6 @@ fi
 %attr(755,root,root) %{_bindir}/wiplcSimple
 %attr(755,root,root) %{_bindir}/wiplcExec
 %attr(754,root,root) /etc/rc.d/init.d/wipld
-%attr(640,root,root) /etc/logrotate.d/wipld
+%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/wipld
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/wipld.conf
 %{_mandir}/man?/*
