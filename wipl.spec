@@ -8,6 +8,7 @@ Group:		Applications/Networking
 Source0:	http://wipl-wrr.sourceforge.net/tgz-wipl/%{name}-%{version}.tar.gz
 # Source0-md5:	ccd8895d8297c98bcf8e02a4d1911e66
 URL:		http://wipl-wrr.sourceforge.net/wipl.html
+BuildRequires:  libpcap-devel
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -55,7 +56,8 @@ programowi wspó³pracowaæ z serwerami proxy takimi jak Squid i socks5.
 %setup -q
 
 %build
-%configure
+perl -pi -e 's/net\/bpf.h/pcap-bpf.h/g' configure
+%configure2_13
 %{__make}
 
 %install
@@ -64,9 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/init.d $RPM_BUILD_ROOT/etc/logrotate.d
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d $RPM_BUILD_ROOT/etc/logrotate.d
 install support/wipld.conf $RPM_BUILD_ROOT%{_sysconfdir}/wipld.conf
-install redhat/wipld $RPM_BUILD_ROOT%{_sysconfdir}/init.d/wipld
+install redhat/wipld $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/wipld
 install redhat/logrotate $RPM_BUILD_ROOT/etc/logrotate.d/wipld
 
 %clean
