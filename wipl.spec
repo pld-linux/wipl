@@ -63,10 +63,10 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/init.d $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/init.d $RPM_BUILD_ROOT/etc/logrotate.d
 install support/wipld.conf $RPM_BUILD_ROOT%{_sysconfdir}/wipld.conf
 install redhat/wipld $RPM_BUILD_ROOT%{_sysconfdir}/init.d/wipld
-install redhat/logrotate $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/wipld
+install redhat/logrotate $RPM_BUILD_ROOT/etc/logrotate.d/wipld
 
 %clean
 rm -rf $RPM_BUILD_ROOT
