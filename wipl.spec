@@ -6,6 +6,7 @@ Release:	1
 License:	GPL v2+
 Group:		Applications/Networking
 Source0:	http://wipl-wrr.sourceforge.net/tgz-wipl/%{name}-%{version}.tar.gz
+# Source0-md5:	ccd8895d8297c98bcf8e02a4d1911e66
 URL:		http://wipl-wrr.sourceforge.net/wipl.html
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
