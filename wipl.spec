@@ -1,4 +1,5 @@
-Summary:	Make statistics on basis of packets seen on a LAN.
+Summary:	Make statistics on basis of packets seen on a LAN
+Summary(pl):	Tworzenie statystyk na bazie pakietów zauwa¿onych w sieci lokalnej
 Name:		wipl
 Version:	020601
 Release:	1
@@ -6,6 +7,8 @@ License:	GPL v2+
 Group:		Applications/Networking
 Source0:	http://wipl-wrr.sourceforge.net/tgz-wipl/%{name}-%{version}.tar.gz
 URL:		http://wipl-wrr.sourceforge.net/wipl.html
+PreReq:		rc-scripts
+Requires(post,preun):	/sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -29,6 +32,24 @@ On the wipl home page an extension is available which makes it
 possible for wipl to cooperate with proxyservers such as Squid and a
 socks5 server.
 
+%description -l pl
+Program wipl potrafi prowadziæ i wy¶wietlaæ statystyki bazuj±c na
+pakietach zauwa¿onych przez kartê sieciow±.
+
+Pakiet zawiera demona, który prowadzi statystyki. Dla ka¿dego pakietu
+zauwa¿onego przez kartê sieciow± demon wykonuje ma³y program wskazany
+przez u¿ytkownika. Program ten mo¿e uaktualniaæ statystyki u¿ywaj±c
+informacji o pakiecie. Musi byæ napisany w bardzo prostym, wbudowanym
+jêzyku programowania.
+
+Pakiet zawiera tak¿e kilka programów klienckich, które mog± odczytywaæ
+lub modyfikowaæ statystyki prowadzone przez demona. Te tabele mog± byæ
+zapisane do plików HTML lub XML, co pozwala na ³atw± publikacjê na
+stronach WWW.
+
+Na stronie projektu wipl dostêpne jest rozszerzenie pozwalaj±ce
+programowi wspó³pracowaæ z serwerami proxy takimi jak Squid i socks5.
+
 %prep
 %setup -q
 
@@ -42,36 +63,35 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install -d -o 0 -g 0 $RPM_BUILD_ROOT/%{_sysconfdir}/init.d $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d
-install -o 0 -g 0 support/wipld.conf $RPM_BUILD_ROOT/%{_sysconfdir}/wipld.conf
-install -o 0 -g 0 redhat/wipld $RPM_BUILD_ROOT/%{_sysconfdir}/init.d/wipld
-install -o 0 -g 0 redhat/logrotate $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d/wipld
-
-%post
-chkconfig --add wipld
-
-%preun
-if [ -e /%{_localstatedir}/run/wipld.pid ]; then
-  /%{_sysconfdir}/init.d/wipld stop
-fi
-chkconfig --del wipld
-
-%postun
-rm -f %{_localstatedir}/log/wipld.*
-rm -f %{_localstatedir}/run/wipld.pid
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/init.d $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
+install support/wipld.conf $RPM_BUILD_ROOT%{_sysconfdir}/wipld.conf
+install redhat/wipld $RPM_BUILD_ROOT%{_sysconfdir}/init.d/wipld
+install redhat/logrotate $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/wipld
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+/sbin/chkconfig --add wipld
+
+%preun
+if [ "$1" = "0" ]; then
+	if [ -f /var/run/wipld.pid ]; then
+		/etc/rc.d/init.d/wipld stop
+	fi
+	/sbin/chkconfig --del wipld
+	rm -f /var/run/wipld.pid
+fi
+
 %files
 %defattr(644,root,root,755)
+%doc ChangeLog AUTHORS README NEWS FAQ support wiplJava
 %attr(755,root,root) %{_sbindir}/wipld
 %attr(755,root,root) %{_sbindir}/wiplcInetd
 %attr(755,root,root) %{_bindir}/wiplc
 %attr(755,root,root) %{_bindir}/wiplcSimple
 %attr(755,root,root) %{_bindir}/wiplcExec
-%{_sysconfdir}/init.d/wipld
-%{_sysconfdir}/logrotate.d/wipld
+%attr(754,root,root) /etc/rc.d/init.d/wipld
+%attr(640,root,root) /etc/logrotate.d/wipld
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/wipld.conf
 %{_mandir}/man?/*
-%config %{_sysconfdir}/wipld.conf
-%doc wipl.lsm ChangeLog AUTHORS README NEWS FAQ support wiplJava
