@@ -2,9 +2,10 @@ Summary:	Make statistics on basis of packets seen on a LAN.
 Name:		wipl
 Version:	020601
 Release:	1
-Copyright:	GNU
+License:	GPL v2+
 Group:		Applications/Networking
 Source0:	http://wipl-wrr.sourceforge.net/tgz-wipl/%{name}-%{version}.tar.gz
+URL:		http://wipl-wrr.sourceforge.net/wipl.html
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
