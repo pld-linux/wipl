@@ -10,6 +10,7 @@ Source0:	http://wipl-wrr.sourceforge.net/tgz-wipl/%{name}-%{version}.tar.gz
 URL:		http://wipl-wrr.sourceforge.net/wipl.html
 BuildRequires:	flex
 BuildRequires:	libpcap-devel
+BuildRequires:	perl-base
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -57,19 +58,19 @@ programowi wspó³pracowaæ z serwerami proxy takimi jak Squid i socks5.
 %setup -q
 
 %build
-perl -pi -e 's/net\/bpf.h/pcap-bpf.h/g' configure
+%{__perl} -pi -e 's/net\/bpf.h/pcap-bpf.h/g' configure
 %configure2_13
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{/etc/{rc.d/init.d,logrotate.d},%{_sysconfdir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d $RPM_BUILD_ROOT/etc/logrotate.d
 install support/wipld.conf $RPM_BUILD_ROOT%{_sysconfdir}/wipld.conf
-install redhat/wipld $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/wipld
+install redhat/wipld $RPM_BUILD_ROOT/etc/rc.d/init.d/wipld
 install redhat/logrotate $RPM_BUILD_ROOT/etc/logrotate.d/wipld
 
 %clean
@@ -89,13 +90,13 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc ChangeLog AUTHORS README NEWS FAQ support wiplJava
+%doc AUTHORS ChangeLog FAQ README support wiplJava
 %attr(755,root,root) %{_sbindir}/wipld
 %attr(755,root,root) %{_sbindir}/wiplcInetd
 %attr(755,root,root) %{_bindir}/wiplc
 %attr(755,root,root) %{_bindir}/wiplcSimple
 %attr(755,root,root) %{_bindir}/wiplcExec
 %attr(754,root,root) /etc/rc.d/init.d/wipld
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/wipld
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/wipld.conf
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/wipld
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/wipld.conf
 %{_mandir}/man?/*
