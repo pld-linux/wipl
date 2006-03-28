@@ -10,8 +10,9 @@ Source0:	http://wipl-wrr.sourceforge.net/tgz-wipl/%{name}-%{version}.tar.gz
 URL:		http://wipl-wrr.sourceforge.net/wipl.html
 BuildRequires:	flex
 BuildRequires:	libpcap-devel
+BuildRequires:	libstdc++-devel
 BuildRequires:	perl-base
-PreReq:		rc-scripts
+Requires:	rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
