@@ -1,5 +1,5 @@
 Summary:	Make statistics on basis of packets seen on a LAN
-Summary(pl):	Tworzenie statystyk na bazie pakietów zauwa¿onych w sieci lokalnej
+Summary(pl.UTF-8):   Tworzenie statystyk na bazie pakietÃ³w zauwaÅ¼onych w sieci lokalnej
 Name:		wipl
 Version:	020601
 Release:	1
@@ -37,23 +37,23 @@ On the wipl home page an extension is available which makes it
 possible for wipl to cooperate with proxyservers such as Squid and a
 socks5 server.
 
-%description -l pl
-Program wipl potrafi prowadziæ i wy¶wietlaæ statystyki bazuj±c na
-pakietach zauwa¿onych przez kartê sieciow±.
+%description -l pl.UTF-8
+Program wipl potrafi prowadziÄ‡ i wyÅ›wietlaÄ‡ statystyki bazujÄ…c na
+pakietach zauwaÅ¼onych przez kartÄ™ sieciowÄ….
 
-Pakiet zawiera demona, który prowadzi statystyki. Dla ka¿dego pakietu
-zauwa¿onego przez kartê sieciow± demon wykonuje ma³y program wskazany
-przez u¿ytkownika. Program ten mo¿e uaktualniaæ statystyki u¿ywaj±c
-informacji o pakiecie. Musi byæ napisany w bardzo prostym, wbudowanym
-jêzyku programowania.
+Pakiet zawiera demona, ktÃ³ry prowadzi statystyki. Dla kaÅ¼dego pakietu
+zauwaÅ¼onego przez kartÄ™ sieciowÄ… demon wykonuje maÅ‚y program wskazany
+przez uÅ¼ytkownika. Program ten moÅ¼e uaktualniaÄ‡ statystyki uÅ¼ywajÄ…c
+informacji o pakiecie. Musi byÄ‡ napisany w bardzo prostym, wbudowanym
+jÄ™zyku programowania.
 
-Pakiet zawiera tak¿e kilka programów klienckich, które mog± odczytywaæ
-lub modyfikowaæ statystyki prowadzone przez demona. Te tabele mog± byæ
-zapisane do plików HTML lub XML, co pozwala na ³atw± publikacjê na
+Pakiet zawiera takÅ¼e kilka programÃ³w klienckich, ktÃ³re mogÄ… odczytywaÄ‡
+lub modyfikowaÄ‡ statystyki prowadzone przez demona. Te tabele mogÄ… byÄ‡
+zapisane do plikÃ³w HTML lub XML, co pozwala na Å‚atwÄ… publikacjÄ™ na
 stronach WWW.
 
-Na stronie projektu wipl dostêpne jest rozszerzenie pozwalaj±ce
-programowi wspó³pracowaæ z serwerami proxy takimi jak Squid i socks5.
+Na stronie projektu wipl dostÄ™pne jest rozszerzenie pozwalajÄ…ce
+programowi wspÃ³Å‚pracowaÄ‡ z serwerami proxy takimi jak Squid i socks5.
 
 %prep
 %setup -q
