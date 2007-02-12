@@ -1,5 +1,5 @@
 Summary:	Make statistics on basis of packets seen on a LAN
-Summary(pl.UTF-8):   Tworzenie statystyk na bazie pakietów zauważonych w sieci lokalnej
+Summary(pl.UTF-8):	Tworzenie statystyk na bazie pakietów zauważonych w sieci lokalnej
 Name:		wipl
 Version:	020601
 Release:	1
